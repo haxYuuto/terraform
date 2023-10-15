@@ -1,0 +1,26 @@
+name: Security Analysis with Checkov
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  checkov:
+    name: Checkov Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Checkov
+        run: pip install checkov
+
+      - name: Run Checkov
+        run: checkov -d ./path/to/terraform/scripts
